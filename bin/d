@@ -1,0 +1,42 @@
+#!/bin/bash
+set -e
+
+function list() {
+    echo docker container ls -a
+    docker container ls -a
+    echo
+    echo -----
+    echo
+    echo docker image ls -a
+    docker image ls -a
+}
+
+function prune_containers() {
+    containers=$(docker container ls -aq)
+    if [[ "" != "${containers}" ]]; then
+        docker container rm -f $containers
+    fi
+}
+
+function prune_images() {
+    docker image prune -af
+}
+
+function prune() {
+    if [ -z $2 ]; then
+        prune_containers
+        prune_images
+    elif [[ "${2}" =~ "container" ]]; then
+        prune_containers
+    elif [[ "${2}" =~ "image" ]]; then
+        prune_images
+    fi
+}
+
+if [[ "${1}" == "ls" ]]; then
+    list
+elif [[ "${1}" == "prune" ]]; then
+    prune $2
+else
+    docker $@
+fi

@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+
+debug=""
+cmd=""
+
+while [ $# -gt 0 ]; do
+    case $1 in
+      '-d')
+        debug="echo "
+        shift
+        ;;
+      'describe' | 'desc' | 'des' | 'd')
+        cmd="${cmd}describe "
+        shift
+        ;;
+      'delete' | 'del')
+        cmd="${cmd}delete "
+        shift
+        ;;
+      'logs')
+        cmd="${cmd}logs --timestamps "
+        shift
+        ;;
+      *)
+        cmd="${cmd}${1} "
+        shift
+        ;;
+    esac
+done
+
+${debug}kubectl $cmd
