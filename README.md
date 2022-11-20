@@ -3,7 +3,7 @@
 
 ## blog posts
 
-- [when alias isn't enough: $@](https://charlesthomas.github.io/post/dollar-at/)
+- [when alias isn't enough: $@](https://charlesthomas.github.io/post/dollar-at-2022-11-20/)
   - covers:
     - `bin/d`
     - `bin/g`
