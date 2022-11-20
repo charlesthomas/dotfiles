@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+echo
+echo '$0': $0
+echo '$@': $@
+echo '$#': $#
+
+echo ---
+
+c=1
+for i in $@; do
+    echo '$'$c: $i
+    c=$((c + 1))
+done
