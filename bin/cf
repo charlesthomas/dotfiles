@@ -1,0 +1,12 @@
+#!/bin/bash
+while read input; do
+    FILE=`echo $input | cut -f1 -d':'`
+    LINE=`echo $input | cut -f2 -d':'`
+    if [ "$1" == "-l" ]; then
+        echo "code -g $FILE:$LINE"
+    elif [ $LINE == $FILE ];then
+        code -g $FILE
+    else
+        code -g $FILE:$LINE
+    fi
+done

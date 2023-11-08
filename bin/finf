@@ -1,0 +1,4 @@
+#!/bin/bash
+rg --no-ignore --no-heading --line-number --follow $@ 2>/dev/null | \
+cut -d: -f1,2 | \
+fzf -m -d: --preview 'bat -f -H {2} -r $(range {2}) {1}'

@@ -1,0 +1,9 @@
+#!/bin/bash
+start=$(echo \
+  "height=${FZF_PREVIEW_LINES:-0} / 2;\
+  t=${1};\
+  maybe_start=t-height;\
+  if(maybe_start<0) maybe_start=0;
+  print maybe_start;" \
+| bc)
+echo "${start}:"

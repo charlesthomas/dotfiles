@@ -1,0 +1,12 @@
+#!/bin/bash
+while read input; do
+    FILE=`echo $input | cut -f1 -d':'`
+    LINE=`echo $input | cut -f2 -d':'`
+    if [ "$1" == "-l" ]; then
+        echo "vim +$LINE $FILE"
+    elif [ $LINE == $FILE ];then
+        vim $FILE < /dev/tty
+    else
+        vim +$LINE $FILE </dev/tty
+    fi
+done
