@@ -1,0 +1,16 @@
+# If not running interactively, don't do anything else:
+[ -z "$PS1" ] && return
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+echo sourcing ~/.bashrc.d/ ...
+for rc in $(ls ~/.bashrc.d); do
+    base_rc=$(basename $rc)
+    echo -n " $base_rc"
+    source ~/.bashrc.d/$base_rc
+done
+echo
+
+#######
+# EOF #
+#######
