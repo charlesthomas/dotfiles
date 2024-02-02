@@ -1,0 +1,10 @@
+#!/bin/bash
+
+vol=/Volumes/LaCie 
+
+while [ -e $vol ]; do
+    /usr/sbin/diskutil unmount $vol
+    sleep 0.01
+done
+
+pmset sleepnow

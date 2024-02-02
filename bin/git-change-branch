@@ -1,0 +1,64 @@
+#!/bin/bash
+
+function print_help() {
+    echo "$0 [options] [branch name]"
+    echo "-----"
+    echo "branch name / search: branch name or partial branch name to change to / search for [optional]"
+    echo "-----"
+    echo "-R don't include remote branches (default)"
+    echo "-a include remote branches"
+    echo "-r include remote branches"
+    echo "(there are two ways to do that b/c i can't remember which is right, so they both are)"
+    echo "-d print commands but don't run them"
+    echo "-v print commands and run them"
+    echo "-h print this help and exit"
+}
+
+DEBUG=
+VERBOSE=
+REMOTE=
+
+while getopts ":Rardvh" option; do
+    case $option in
+        R)
+            REMOTE=
+            ;;
+        a)
+            REMOTE=-a
+            ;;
+        r)
+            REMOTE=-a
+            ;;
+        d)
+            DEBUG=echo
+            ;;
+        v)
+            VERBOSE=true
+            ;;
+        h)
+            print_help
+            exit 0
+            ;;
+        \?)
+            echo "invalid option!"
+            print_help
+            exit 1
+            ;;
+    esac
+done
+
+shift $((OPTIND - 1))
+
+if [ $VERBOSE ]; then
+    set -x
+fi
+
+if [ $REMOTE ]; then
+    $DEBUG git fetch >/dev/null
+    $DEBUG git prune-local >/dev/null
+fi
+query=''
+if [ $1 ]; then
+    query="--query '${1}"
+fi
+$DEBUG git checkout $(git branch $REMOTE | grep -v $(git branch --show-current) | fzf --exit-0 --select-1 $query | tr -d '*' | sed s/'remotes\/origin\/'//)

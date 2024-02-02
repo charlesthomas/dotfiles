@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ ! -z $2 ]; then
+    shift
+fi
+
+q=$1
+
+if [[ "${q}" =~ " " ]]; then
+    q=$(echo $q | cut -d ' ' -f2-)
+fi
+
+if [[ "${q}" =~ "/" ]]; then
+    org=$(echo $q | cut -d / -f 1)
+    q=$(echo $q | cut -d / -f 2)
+else
+    org=$REPO_ORG
+fi
+
+open "https://github.com/orgs/${org}/repositories?q=${q}"

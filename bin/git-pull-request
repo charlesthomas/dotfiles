@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+if [ ! -x $HOMEBREW_PREFIX/bin/gh ]; then
+    echo "brew install gh!"
+    exit 1
+fi
+
+git push
+PR=$(gh pr create --fill $@ | grep https)
+echo $PR
+echo $PR | pbcopy

@@ -1,0 +1,19 @@
+#!/bin/bash
+set -ex
+
+found=$(find $REPO_DIR -name "*${1}*" -mindepth 2 -maxdepth 2 -type d)
+
+echo -n '{"items": ['
+
+for full_path in $found; do
+    org_repo=$(echo $full_path | rev | cut -d / -f 1,2 | rev)
+    cat <<EOT
+{
+    "title": "${org_repo}",
+    "arg": "${full_path}",
+    "autocomplete": "${org_repo}",
+},
+EOT
+done
+
+echo ']}'

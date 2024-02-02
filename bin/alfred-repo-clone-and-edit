@@ -1,0 +1,29 @@
+#!/bin/bash
+set -ex
+
+if [ ! -z $2 ]; then
+    # if the fallback option is used, the input is "<keyword> <query>"
+    # but if it isn't, then the input is just "<query>"
+    shift
+fi
+
+if [[ "${1}" =~ "/" ]]; then
+    org=$(echo $1 | rev | cut -d / -f 2 | rev)
+    repo=$(echo $1 | rev | cut -d / -f 1 | rev)
+else
+    org=$REPO_ORG
+    repo=$1
+fi
+
+if [[ "${1}" =~ $REPO_DIR ]]; then
+    full_path=$1
+else
+    full_path=$REPO_DIR/$org/$repo
+fi
+
+if [ ! -e $full_path ]; then
+    url="https://${REPO_HOST}/${org}/${repo}"
+    git clone $url $full_path
+fi
+
+/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code $full_path

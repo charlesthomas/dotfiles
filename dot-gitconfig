@@ -32,7 +32,6 @@
     s = status
     sh = show
     v = log -n 1 --format=%H
-    wip = commit -F /Users/crthomas/commit_templates/wip
 
 # [blame]
 	# ignoreRevsFile = .git-blame-ignore-revs
@@ -42,7 +41,6 @@
 
 [core]
     excludesfile = /Users/crthomas/.gitignore
-    # editor = vim
     editor = code --wait
     pager = delta
 
@@ -61,8 +59,6 @@
 	defaultBranch = main
 
 [pull]
-    # rebase = false
-    # changed 2022-09-22
     rebase = true
 
 [push]
@@ -72,6 +68,7 @@
 [user]
     name = Charles Thomas
     email = ch@rlesthom.as
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

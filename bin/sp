@@ -1,0 +1,3 @@
+#!/bin/bash
+
+kubectl get pods --output custom-columns=":metadata.name" --no-headers $@ | fzf --select-1

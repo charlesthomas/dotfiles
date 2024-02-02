@@ -1,0 +1,73 @@
+#!/bin/bash
+
+REPO_EDITOR=${REPO_EDITOR:-code}
+
+# define the clone function for later use
+function clone() {
+    # ask for user input on the name of the repo to clone
+    read -e -p "clone? [${1}] " clone
+
+    if [[ "${clone}" == "" ]]; then
+        # the default is whatever you passed in to the original command,
+        # but that might not actually be the full name of the repo,
+        # because this script searches repos on disk
+        clone=$input
+    fi
+
+    if [[ $clone =~ "/" ]]; then
+        # user input was org/repo, so split out just the repo name for later use
+        repo=$(echo $clone | cut -f2 -d'/')
+    else
+        # user input was just the repo name,
+        # so use the default org set in REPO_ORG
+        repo=$clone
+        clone=$REPO_ORG/$clone
+    fi
+
+    # clone the repo via https
+    git clone https://$REPO_HOST/$clone $REPO_DIR/$clone
+    echo $REPO_DIR/$clone
+}
+
+# main script starts here
+input=$1
+
+# make sure the root dir we're going to clone things into exists
+if [ ! -d $REPO_DIR ]; then
+    mkdir -p $REPO_DIR
+fi
+
+# try to find the repo on disk
+full_path=$(find $REPO_DIR -type d -depth 2 | fzf --query "'${input}" --select-1 --exit-0)
+
+# if we didn't find it on disk try to clone it
+if [ -z $full_path ]; then
+    full_path=$(clone $input)
+fi
+
+# if full_path is still empty, something went wrong, so bail
+if [ -z $full_path ]; then
+    exit 1
+fi
+
+if [[ "${REPO_EDITOR}" == "code" ]]; then
+    code $full_path
+elif [[ "${REPO_EDITOR}" == "tmux" ]]; then
+    # we want just the repo name from the full path for setting the tmux window name
+    repo_name=$(echo $full_path | rev | cut -f 1 -d / | rev)
+
+    # assume there's a tmux session open already and we want a new window
+    thing=window
+
+    # check to see if that's actually true; if it isn't we want a new session
+    if [ -z $TMUX_PANE ]; then
+        thing=session
+    fi
+
+    # create the new tmux window or session, with the working directory set to the
+    # root of the repo, and the name of the window set to the repo's name
+    tmux new-$thing -c $full_path -n $repo_name
+else
+    echo "i don't know how to use $REPO_EDITOR"
+    exit 1
+fi

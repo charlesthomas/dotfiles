@@ -1,0 +1,8 @@
+#!/bin/bash
+
+query=
+if [ -n $1 ]; then
+    query="--query '${1}"
+fi
+
+git commit -F $(find ~/commit_templates -type f | fzf --exit-0 --select-1 $query)

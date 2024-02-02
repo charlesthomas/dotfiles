@@ -1,0 +1,70 @@
+#!/bin/bash
+set -e
+
+function print_help() {
+    echo "$0 [-P|-p|-d|-v|-h] [branch-from] new-branch"
+    echo "-----"
+    echo "branch-from: new branch is created from this branch [optional]"
+    echo "new-branch: the name of the new branch you're creating"
+    echo "-----"
+    echo "-P DO NOT git pull branch-from"
+    echo "-p do git pull branch-from (default)"
+    echo "-d print commands but don't run them"
+    echo "-v print commands and run them"
+    echo "-h print this help and exit"
+}
+
+DEBUG=
+PULL=true
+VERBOSE=
+
+while getopts ":Ppdvh" option; do
+    case $option in
+        P)
+            PULL=
+            ;;
+        p)
+            PULL=true
+            ;;
+        d)
+            DEBUG=echo
+            ;;
+        v)
+            VERBOSE=true
+            ;;
+        h)
+            print_help
+            exit 0
+            ;;
+        \?)
+            echo "invalid option!"
+            print_help
+            exit 1
+            ;;
+    esac
+done
+
+shift $((OPTIND - 1))
+
+if [ $VERBOSE ]; then
+    set -x
+fi
+
+new_branch=''
+branch_from=$(git branch --show-current)
+if [[ -z $1 ]]; then
+    exit 1
+fi
+if [[ -z $2 ]]; then
+    new_branch=$1
+else
+    branch_from=$1
+    new_branch=$2
+    $DEBUG git checkout $branch_from
+fi
+
+if [ $PULL ]; then
+    $DEBUG git pull
+fi
+
+$DEBUG git checkout -b $new_branch
