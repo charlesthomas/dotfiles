@@ -1,0 +1,79 @@
+[alias]
+    a = add
+    ap = add -p
+    b = branch
+    bd = branch -D
+    c = commit
+    cb = change-branch
+    cf = commit-from-template
+    ch = cherry-pick
+    cm = commit -m
+    co = checkout
+    d = diff
+    db = delete-branch
+    f = fetch
+    fix = commit -v --no-edit --amend
+    fpf = ! git fix && git pf
+    g = pull
+    gpl = ! git g && git pl
+    l = log
+    l1 = log -1
+    lp = log -p
+    ma = ! git cb ma && git gpl
+    mv = mv -v
+    nb = new-branch
+    p = push
+    pf = push --force
+    pr = pull-request
+    pop = stash pop
+    pl = prune-local
+    r = reset
+    rh = reset --hard
+    s = status
+    sh = show
+    v = log -n 1 --format=%H
+    wip = commit -F /Users/crthomas/commit_templates/wip
+
+# [blame]
+	# ignoreRevsFile = .git-blame-ignore-revs
+
+[color]
+    ui = true
+
+[core]
+    excludesfile = /Users/crthomas/.gitignore
+    # editor = vim
+    editor = code --wait
+    pager = delta
+
+[delta]
+    syntax-theme = GitHub
+    navigate = true
+    features = line-numbers side-by-side
+
+[diff "ansible-vault"]
+    textconv = ansible-vault view
+
+[help]
+    autoCorrect = 1
+
+[init]
+	defaultBranch = main
+
+[pull]
+    # rebase = false
+    # changed 2022-09-22
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+    default = simple
+
+[user]
+    name = Charles Thomas
+    email = ch@rlesthom.as
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

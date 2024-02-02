@@ -1,0 +1,95 @@
+syntax on
+
+" idk what these do but i know i want them
+highlight clear SignColumn
+set laststatus=2
+
+set nobackup
+set noswapfile
+
+set autoindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set backspace=2
+set expandtab
+
+set wildignore+=*.pyc
+
+set textwidth=80
+set colorcolumn=81
+
+set ignorecase
+set smartcase
+
+set incsearch
+set hlsearch
+
+set number
+set ruler
+set showmatch
+" set spell
+hi SpellBad ctermfg=white guifg=white
+
+set background=light
+"colorscheme github
+
+" whitespace highlighting
+" MUST be after colorscheme
+" source: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+
+" unhighlight
+map <C-x> :nohlsearch<CR>
+" toggle list on/off w/ctrl + l
+map <C-z> :set list!<CR>
+" map <C-m> :setfiletype make<CR>
+
+" uncomment
+nmap <C-u> V: s/\v^(\s*)#+ ?/\1/g<CR>:nohls<CR>
+vmap <C-u> : s/\v^(\s*)#+ ?/\1/g<CR>:nohls<CR>
+" comment
+nmap <C-c> V: s/\v^(\s*)/\1# /g<CR>:nohls<CR>
+vmap <C-c> : s/\v^(\s*)/\1# /g<CR>:nohls<CR>
+
+" disable arrow keys
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+" better splitting
+set splitbelow
+set splitright
+" make ctrl + hjkl navigate panes
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" if you :hardcopy, include "Page X of Y"
+set printoptions=number:y
+
+" load .vim/vimrc.d files
+source ~/.vim/vimrc.d/rainbowparens.vim
+au BufNewFile,BufRead Jenkinsfile setfiletype groovy
+au BufNewFile,BufRead *.envsubst setfiletype yaml
+autocmd FileType java source ~/.vim/vimrc.d/java.vim
+autocmd FileType javascript source ~/.vim/vimrc.d/js.vim
+autocmd FileType go source ~/.vim/vimrc.d/go.vim
+autocmd FileType groovy source ~/.vim/vimrc.d/groovy.vim
+autocmd FileType html* source ~/.vim/vimrc.d/html.vim
+autocmd FileType vim source ~/.vim/vimrc.d/vim.vim
+autocmd FileType json source ~/.vim/vimrc.d/html.vim
+autocmd FileType yaml source ~/.vim/vimrc.d/html.vim
+autocmd FileType envsubt source ~/.vim/vimrc.d/html.vim
+autocmd FileType markdown source ~/.vim/vimrc.d/html.vim
+autocmd FileType make source ~/.vim/vimrc.d/make.vim
+autocmd FileType gitcommit source ~/.vim/vimrc.d/git.vim
+autocmd FileType markdown source ~/.vim/vimrc.d/md.vim

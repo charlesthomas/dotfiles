@@ -1,6 +1,14 @@
 # dotfiles
 .bashrc, .tmux.conf, .gitconfig, etc
 
+this repo uses [gnu stow](https://www.gnu.org/software/stow/)
+
+## use
+
+```bash
+stow --dir $DOTFILES --target $HOME --dotfiles .
+```
+
 ## blog posts
 
 - [when alias isn't enough: $@](https://charlesthomas.dev/blog/when-alias-isnt-enough-@-2022-11-20/)

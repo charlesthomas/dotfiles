@@ -28,5 +28,7 @@ if [[ "$(uname)" != "Darwin" ]]; then
     alias pbpaste='xclip -selection clipboard -o'
 fi
 
-export RIPGREP_CONFIG_PATH=~/.config/ripgrep/config
+export BAT_CONFIG_PATH=~/.bat.conf
+export RIPGREP_CONFIG_PATH=~/.ripgrep.conf
+export DOTFILES=$REPO_DIR/charlesthomas/dotfiles
 

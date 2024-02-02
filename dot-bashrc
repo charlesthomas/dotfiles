@@ -4,7 +4,7 @@
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 echo sourcing ~/.bashrc.d/ ...
-for rc in $(ls ~/.bashrc.d); do
+for rc in $(ls ~/.bashrc.d/); do
     base_rc=$(basename $rc)
     echo -n " $base_rc"
     source ~/.bashrc.d/$base_rc
