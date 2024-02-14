@@ -30,5 +30,3 @@ fi
 
 export BAT_CONFIG_PATH=~/.bat.conf
 export RIPGREP_CONFIG_PATH=~/.ripgrep.conf
-export DOTFILES=$REPO_DIR/charlesthomas/dotfiles
-

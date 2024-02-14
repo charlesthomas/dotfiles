@@ -6,7 +6,8 @@ this repo uses [gnu stow](https://www.gnu.org/software/stow/)
 ## use
 
 ```bash
-stow --dir $DOTFILES --target $HOME --dotfiles .
+# from dotfiles clone root
+stow --dir $PWD --target $HOME --dotfiles .
 ```
 
 ## blog posts

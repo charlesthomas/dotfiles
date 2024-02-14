@@ -8,7 +8,7 @@ fi
 
 export HOMEBREW_CELLAR="${HOMEBREW_PREFIX}/Cellar";
 export HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}";
-export PATH="${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:${PATH}";
+export PATH="${PATH}:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin";
 export MANPATH="${HOMEBREW_PREFIX}/share/man:${MANPATH}";
 export INFOPATH="${HOMEBREW_PREFIX}/share/info:${INFOPATH:-}";
 

@@ -1,10 +1,10 @@
-alias cc='kc config current-context | cut -f 1 -d /'
+alias kctx='kubectx'
 alias ks='kc'
 alias mk='minikube'
 
 function _k8s_prompt() {
     if [[ "" != $(which kubectl) ]]; then
-        context=$(kubectl config current-context | sed 's/\//-/g')
+        context=$(kubectl config current-context 2>/dev/null | sed 's/\//-/g')
         namespace=$(kubectl config view --minify --output "jsonpath={..namespace}" 2>/dev/null)
         if [[ "" == $namespace ]]; then
             namespace=default

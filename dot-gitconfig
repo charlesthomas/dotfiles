@@ -33,9 +33,6 @@
     sh = show
     v = log -n 1 --format=%H
 
-# [blame]
-	# ignoreRevsFile = .git-blame-ignore-revs
-
 [color]
     ui = true
 
@@ -68,6 +65,9 @@
 [user]
     name = Charles Thomas
     email = ch@rlesthom.as
+
+[url "https://github.com/"]
+    insteadOf = git@github.com
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
