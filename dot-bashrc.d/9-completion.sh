@@ -1,18 +1,20 @@
-export COMPLETION_DIR=/tmp
+export COMPLETION_DIR=/dne
 if [ -d $HOMEBREW_PREFIX/etc/bash_completion.d ]; then
     export COMPLETION_DIR=$HOMEBREW_PREFIX/etc/bash_completion.d
 fi
 
 # standard location
-echo
-echo "sourcing ${COMPLETION_DIR}/..."
+if [ -d $COMPLETION_DIR ]; then
+    echo
+    echo "sourcing ${COMPLETION_DIR}/..."
 
-for file in $(find $COMPLETION_DIR); do
-    if [ -f $file ]; then
-        echo -n " $(basename $file)"
-        source $file
-    fi
-done
+    for file in $(find $COMPLETION_DIR); do
+        if [ -f $file ]; then
+            echo -n " $(basename $file)"
+            source $file
+        fi
+    done
+fi
 
 # asdf
 if [ -e ~/.asdf/completions/asdf.bash ]; then

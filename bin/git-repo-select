@@ -38,7 +38,7 @@ if [ ! -d $REPO_DIR ]; then
 fi
 
 # try to find the repo on disk
-full_path=$(find $REPO_DIR -type d -depth 2 | fzf --query "'${input}" --select-1 --exit-0)
+full_path=$(find $REPO_DIR -mindepth 2 -maxdepth 2 -type d | fzf --query "'${input}" --select-1 --exit-0)
 
 # if we didn't find it on disk try to clone it
 if [ -z $full_path ]; then

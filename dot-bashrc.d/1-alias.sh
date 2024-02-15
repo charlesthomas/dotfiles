@@ -39,6 +39,8 @@ alias wl='wc -l'
 
 # helpers
 alias cdd='cd /Users/crthomas/Library/Mobile\ Documents/com~apple~CloudDocs/Downloads'
+alias icloud='cd /Users/crthomas/Library/Mobile\ Documents/com~apple~CloudDocs'
+alias obs='cd /Users/crthomas/Library/Mobile\ Documents/iCloud~md~obsidian/Documents'
 alias today='date +%F'
 alias refresh='source ~/.bashrc'
 

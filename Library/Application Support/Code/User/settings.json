@@ -16,7 +16,7 @@
     
     },
     "terminal.integrated.enableMultiLinePasteWarning": "never",
-    "workbench.colorTheme": "GitHub Dark",
+    "workbench.colorTheme": "GitHub Light",
     "workbench.preferredDarkColorTheme": "GitHub Dark",
     "window.autoDetectColorScheme": true,
     "editor.quickSuggestions": {
