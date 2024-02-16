@@ -1,36 +1,33 @@
-export COMPLETION_DIR=/dne
-if [ -d $HOMEBREW_PREFIX/etc/bash_completion.d ]; then
-    export COMPLETION_DIR=$HOMEBREW_PREFIX/etc/bash_completion.d
+# linux
+export COMPLETION_DIR=/usr/share/bash-completion/completions
+
+# macOS
+if [ -d ${HOMEBREW_PREFIX}/etc/bash_completion.d ]; then
+    export COMPLETION_DIR=${HOMEBREW_PREFIX}/etc/bash_completion.d
 fi
 
-# standard location
-if [ -d $COMPLETION_DIR ]; then
-    echo
-    echo "sourcing ${COMPLETION_DIR}/..."
-
-    for file in $(find $COMPLETION_DIR); do
-        if [ -f $file ]; then
-            echo -n " $(basename $file)"
-            source $file
-        fi
-    done
-fi
+for file in $(find $COMPLETION_DIR -type f); do
+    source $file 2>/dev/null
+done
 
 # asdf
-if [ -e ~/.asdf/completions/asdf.bash ]; then
-    source ~/.asdf/completions/asdf.bash
-fi
+[ -f ~/.asdf/completions/asdf.bash ] && source ~/.asdf/completions/asdf.bash
 
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# git (linux; it's in $COMPLETION_DIR in macOS)
+[ -f /etc/bash_completion.d/git-prompt ] && source /etc/bash_completion.d/git-prompt
+
 # git -> g completion
-if [ -e $COMPLETION_DIR/git-completion.bash ]; then
+#                       macOS                                         linux
+if [ -f $COMPLETION_DIR/git-completion.bash ] || [ -f $COMPLETION_DIR/git ]; then
     ___git_complete g __git_main
 fi
 
 # kubectl -> kc completion
-if [ -e $COMPLETION_DIR/kubectl.bash ]; then
+#                       macOS                                  linux
+if [ -f $COMPLETION_DIR/kubectl.bash ] || [ -f $COMPLETION_DIR/kubectl ]; then
     complete -o default -o nospace -F __start_kubectl kc
     complete -o default -o nospace -F __start_kubectl ktail
 fi
