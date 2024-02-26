@@ -24,11 +24,13 @@ POST_HOST=""
 PRE_DIR=""
 POST_DIR=""
 PRE_GIT=""
+IN_GIT=""
 POST_GIT=""
 PRE_K8S=""
+IN_K8S=""
 POST_K8S=""
 PRE_TIME=""
-POST_TIME=" "
+POST_TIME=""
 
 if [ $COLOR_PROMPT -eq 1 ]; then
     PRE_USER="${CYAN}"
@@ -45,21 +47,23 @@ fi
 
 if [ $EMOJI_PROMPT -eq 1 ]; then
     PRE_USER="${PRE_USER}👤 "
-    PRE_HOST="${PRE_HOST} 🖥  "
+    PRE_HOST="${PRE_HOST} 🖥 "
     PRE_DIR="${PRE_DIR} 📂 "
     IN_GIT=" 📦 "
     IN_K8S=" ☸️  "
-    PRE_TIME="${PRE_TIME}🕰  "
+    PRE_TIME="${PRE_TIME}🕰 "
+    POST_TIME="${POST_TIME}  "
 else
     PRE_HOST="${PRE_HOST}@"
-    PRE_DIR="${PRE_DIR} "
-    PRE_GIT="${IN_GIT} on "
-    PRE_K8S="${IN_K8S} ⎈ "
+    PRE_DIR="${PRE_DIR}"
+    IN_GIT="${IN_GIT} on "
+    IN_K8S="${IN_K8S} ⎈ "
+    POST_TIME="${POST_TIME} "
 fi
 
 PS=""
 PS="${PS}${PRE_USER}\u${POST_USER}"
-PS="${PS}${PRE_HOST}\h${POST_HOST}"
+PS="${PS}${PRE_HOST}\h ${POST_HOST}"
 PS="${PS}${PRE_DIR}\w${POST_DIR}"
 if [ $GIT_PROMPT -eq 1 ]; then
     # single quotes are important!
