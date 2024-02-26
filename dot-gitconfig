@@ -53,7 +53,7 @@
     autoCorrect = 1
 
 [init]
-	defaultBranch = main
+    defaultBranch = main
 
 [pull]
     rebase = true
@@ -66,11 +66,12 @@
     name = Charles Thomas
     email = ch@rlesthom.as
 
-[url "https://github.com/"]
+[url "https://github.com"]
     insteadOf = git@github.com
+    insteadOf = ssh://git@github.com
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true

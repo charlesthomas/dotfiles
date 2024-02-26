@@ -1,3 +1,10 @@
+datafile="${HOME}/.bw/newData.json"
+datadir="${HOME}/.config/Bitwarden CLI"
+if [ ! -e "${datadir}/data.json" ]; then
+    mkdir -p "${datadir}"
+    cp -v $datafile "${datadir}/data.json"
+fi
+
 tokenfile="${HOME}/.bw/env.sh"
 if [ ! -e $tokenfile ]; then
     # without this file we can't do anything else
@@ -14,7 +21,7 @@ else
             # no; make it
 
             # unlock bw vault first
-            export BW_SESSION=$(bw unlock --raw --passwordenv BW_PASSWORD 2>/dev/null)
+            export BW_SESSION=$(bw login --raw --passwordenv BW_PASSWORD 2>/dev/null || bw unlock --raw --passwordenv BW_PASSWORD 2>/dev/null)
 
             # store tokens
             echo "export BW_SESSION=${BW_SESSION}" >> /tmp/.bw_session
