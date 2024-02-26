@@ -21,7 +21,7 @@ else
             # no; make it
 
             # unlock bw vault first
-            export BW_SESSION=$(bw login --raw --passwordenv BW_PASSWORD 2>/dev/null || bw unlock --raw --passwordenv BW_PASSWORD 2>/dev/null)
+            export BW_SESSION=$(bw login $(echo -n $BW_USER) --raw --passwordenv BW_PASSWORD 2>/dev/null || bw unlock --raw --passwordenv BW_PASSWORD 2>/dev/null)
 
             # store tokens
             echo "export BW_SESSION=${BW_SESSION}" >> /tmp/.bw_session
