@@ -1,0 +1,47 @@
+#!/bin/bash
+set -e
+
+bw_root="${HOME}/.bw"
+bw_file_csv="${bw_root}/files.csv"
+dest_dir="${bw_root}/files"
+
+command -v bw >/dev/null
+if [ $? -ne 0 ]; then
+    >&2 echo bw not installed
+    exit 1
+fi
+
+if [ -z $BW_SESSION ]; then
+    >&2 echo bw not authenticated
+    exit 1
+fi
+
+if [ ! -f $bw_file_csv ]; then
+    >&2 echo "${bw_file_csv} missing"
+    exit 1
+fi
+
+if [ "${1}" == "" ]; then
+    res=$(cat $bw_file_csv | fzf --select-1 --exit-0)
+else
+    res=$(grep $1 $bw_file_csv | fzf --select-1 --exit-0)
+fi
+
+if [ -z $res ]; then
+    >&2 echo no results
+    exit 1
+fi
+
+file=$(echo $res | cut -d , -f 1)
+item=$(echo $res | cut -d , -f 2)
+
+dest="${dest_dir}/${file}"
+if [ ! -f $dest ]; then
+    mkdir -p $dest_dir
+    bw get attachment $file --itemid $item --output "${dest}" >/dev/null
+    if [ $? -ne 0 ]; then
+        >&2 echo bw download failed
+        exit 1
+    fi
+fi
+echo $dest

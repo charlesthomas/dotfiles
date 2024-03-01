@@ -10,7 +10,6 @@ alias ll='ls -la'
 
 # overwrite standard commands
 alias cp='cp -v'
-alias dim='vim -c ":set bg=dark" -c ":colorscheme solarized"'
 alias find='find 2>/dev/null'
 alias grep='grep -i --color'
 alias jq='jq -r'
@@ -34,15 +33,23 @@ alias cx='chmod u+x'
 alias ref='refresh'
 alias repo='git repo-select'
 alias tm='tmux attach || tmux'
-alias ts='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 alias wl='wc -l'
 
 # helpers
-alias cdd='cd /Users/crthomas/Library/Mobile\ Documents/com~apple~CloudDocs/Downloads'
-alias icloud='cd /Users/crthomas/Library/Mobile\ Documents/com~apple~CloudDocs'
-alias obs='cd /Users/crthomas/Library/Mobile\ Documents/iCloud~md~obsidian/Documents'
 alias today='date +%F'
 alias refresh='source ~/.bashrc'
+
+if [ -e '/Applications/Tailscale.app/Contents/MacOS/Tailscale' ]; then
+    alias ts='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
+elif [ -e '/usr/bin/tailscale' ]; then
+    alias ts='/usr/bin/tailscale'
+fi
+
+if [ -d '/Users/crthomas/Library/Mobile\ Documents/' ]; then
+    alias cdd='cd /Users/crthomas/Library/Mobile\ Documents/com~apple~CloudDocs/Downloads'
+    alias icloud='cd /Users/crthomas/Library/Mobile\ Documents/com~apple~CloudDocs'
+    alias obs='cd /Users/crthomas/Library/Mobile\ Documents/iCloud~md~obsidian/Documents'
+fi
 
 # typos
 alias greo='grep'
