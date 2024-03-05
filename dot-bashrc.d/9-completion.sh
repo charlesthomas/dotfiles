@@ -6,7 +6,7 @@ if [ -d ${HOMEBREW_PREFIX}/etc/bash_completion.d ]; then
     export COMPLETION_DIR=${HOMEBREW_PREFIX}/etc/bash_completion.d
 fi
 
-for file in $(find $COMPLETION_DIR -type f); do
+for file in $(find $COMPLETION_DIR -type f -o -type l); do
     source $file 2>/dev/null
 done
 
