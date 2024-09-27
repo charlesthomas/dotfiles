@@ -1,0 +1,13 @@
+#!/bin/bash
+[ -z $KUBECONFIG ] && exit 1
+command -v yq &>/dev/null
+if [ $? -ne 0 ]; then
+    echo yq not installed
+    exit 1
+fi
+
+if [ ! -z $1 ]; then
+  query="--query $1"
+fi
+
+yq .contexts[].name $KUBECONFIG | fzf --select-1 $query
