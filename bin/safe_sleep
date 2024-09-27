@@ -1,6 +1,6 @@
 #!/bin/bash
 
-vol=/Volumes/LaCie 
+vol=/Volumes/LaCie
 
 while [ -e $vol ]; do
     /usr/sbin/diskutil unmount $vol

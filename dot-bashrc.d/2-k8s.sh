@@ -1,6 +1,4 @@
-alias kctx='kubectx'
 alias ks='kc'
-alias mk='minikube'
 
 function _k8s_prompt() {
     if [[ "" != $(which kubectl) ]]; then

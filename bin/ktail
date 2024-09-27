@@ -1,2 +1,2 @@
 #!/bin/bash
-kubectl logs --timestamps --tail 1 -f $@
+kubectl logs --timestamps -f $@

@@ -13,7 +13,6 @@
     "terminal.integrated.fontWeightBold": "bold",
     "terminal.integrated.defaultProfile.osx": "bash",
     "editor.codeActionsOnSave": {
-    
     },
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "workbench.colorTheme": "GitHub Light",
@@ -32,7 +31,6 @@
     "editor.autoClosingQuotes": "never",
     "editor.autoSurround": "never",
     "editor.emptySelectionClipboard": false,
-    "terminal.integrated.defaultLocation": "editor",
     "terminal.integrated.copyOnSelection": true,
     "[javascript]": {
         "editor.insertSpaces": true,
@@ -163,4 +161,12 @@
     "workbench.editorAssociations": {
         "git-rebase-todo": "default"
     },
+    "indentRainbow.indentSetter": {
+        "json": { "tabSize": 2, "insertSpaces": true }
+    },
+    "jsonnet.languageServer.formatting": {
+    },
+    "go.showWelcome": false,
+    "terminal.integrated.fontWeight": "normal",
+    "go.testEnvFile": "${userHome}/.vscode_env"
 }

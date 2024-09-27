@@ -11,14 +11,10 @@ BLUE="\[\e[1;34m\]"
 
 # enable / disable features
 COLOR_PROMPT=${COLOR_PROMPT:-1}
-EMOJI_PROMPT=${EMOJI_PROMPT:-1}
+EMOJI_PROMPT=${EMOJI_PROMPT:-0}
 GIT_PROMPT=${GIT_PROMPT:-1}
 K8S_PROMPT=${K8S_PROMPT:-1}
 TIME_PROMPT=${TIME_PROMPT:-1}
-
-if [[ "$(uname -s | tr '[:upper:]' '[:lower:]')" == "linux" ]]; then
-    export EMOJI_PROMPT=0
-fi
 
 # set everything to empty
 PRE_USER=""
