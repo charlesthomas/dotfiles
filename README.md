@@ -12,6 +12,8 @@ stow --dir $PWD --target $HOME --dotfiles .
 
 ## blog posts
 
+- [Split Monolithic YAML File by Kubernetes Kind](https://charlesthomas.dev/blog/split-monolithic-yaml-file-by-kubernetes-kind-2024-10-04/)
+  - `bin/split-by-kind`
 - [when alias isn't enough: $@](https://charlesthomas.dev/blog/when-alias-isnt-enough-@-2022-11-20/)
   - `bin/d`
   - `bin/g`
