@@ -1,23 +1,33 @@
 #!/bin/bash
 
-# awk bits stolen from:
-# https://stackoverflow.com/a/59404597
+function kind_map {
+    k=$(yq .kind $f)
+    case $k in
+    ClusterRole | ClusterRoleBinding | Role | RoleBinding)
+        echo -n rbac
+        return
+        ;;
+    PersistentVolumeClaim)
+        echo -n pvcs
+        return
+        ;;
+    Ingress)
+        echo -n ingresses
+        return
+        ;;
+    *)
+        echo -n "${k}s" | tr '[:upper:]' '[:lower:]'
+        ;;
+    esac
+}
 
 mkdir -p resources/
+mkdir -p tmp/resources/
+yq -s '"tmp/resources/" + $index' ${1:-/dev/stdin}
 
-awk '
-/^kind:/{
-  close(file)
-  file="resources/"$NF".yaml"
-}
-file!="" && !/^--/{
-  print > (file)
-}
-' ${1:-/dev/stdin}
-
-
-for f in $(ls resources/*.yaml); do
-    [[ "${f}" == "${1}" ]] && continue
-    d="$(echo $f | cut -f 1 -d . | tr '[:upper:]' '[:lower:]')s.yaml"
-    mv $f $d
+for f in $(ls tmp/resources/*.yml); do
+    k=$(kind_map $f)
+    cat $f >> resources/$k.yaml
 done
+
+rm -rf tmp/resources/
