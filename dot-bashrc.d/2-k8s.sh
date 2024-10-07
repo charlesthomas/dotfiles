@@ -1,3 +1,5 @@
+export KUBECONFIG=~/.kube/config.d/homelab.conf
+alias kctx='kubectx'
 alias ks='kc'
 
 function _k8s_prompt() {
