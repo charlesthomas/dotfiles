@@ -1,3 +1,4 @@
 #!/bin/bash
 # Set up fzf key bindings and fuzzy completion
-eval "$(fzf --bash)"
+# only works on mac for some reason
+[[ "$(uname -s)" == Darwin ]] && eval "$(fzf --bash)"
