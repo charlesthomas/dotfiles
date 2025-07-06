@@ -1,8 +1,11 @@
 bwroot="${HOME}/.bw"
-blankdata="${bwroot}/data.json"
+[ ! -e $bwroot ] && mkdir -p $bwroot
 
 datadir="${HOME}/.config/Bitwarden CLI"
 datafile="${datadir}/data.json"
+
+tokendir="${HOME}/.tokens"
+[ ! -e $tokendir ] && mkdir -p $tokendir
 
 command -v bw >/dev/null
 if [ $? -ne 0 ]; then
@@ -11,22 +14,25 @@ if [ $? -ne 0 ]; then
     return
 fi
 
-bwtokens="${bwroot}/bw_tokens.sh"
-if [ ! -e $bwtokens ]; then
+bwcreds="${bwroot}/creds.sh"
+if [ ! -e $bwcreds ]; then
     echo
-    echo "!!! ${bwtokens} missing !!!"
+    echo "!!! ${bwcreds} missing !!!"
     return
 fi
-source $bwtokens
+source $bwcreds
 
-if [ ! -e "${datafile}" ]; then
-    mkdir -p "${datadir}"
-    cp -v $blankdata "${datafile}"
-fi
-
-bwsession="${bwroot}/bw_session.sh"
+bwsession="${bwroot}/session.sh"
 if [ ! -e "${bwsession}" ]; then
-    export BW_SESSION=$(bw login $(echo -n $BW_USER) --raw --passwordenv BW_PASSWORD 2>/dev/null || bw unlock --raw --passwordenv BW_PASSWORD 2>/dev/null)
+    if [ ! -e ${bwroot}/.configuredserver ]; then
+        bw config server $BW_SERVER
+        touch ${bwroot}/.configuredserver
+    fi
+    if [ ! -e ${bwroot}/.loggedin ]; then
+        bw login --apikey
+        touch ${bwroot}/.loggedin
+    fi
+    export BW_SESSION=$(bw unlock --raw --passwordenv BW_PASSWORD)
     if [ -z $BW_SESSION ]; then
         echo
         echo "!!! failed to load BW_SESSION !!!"
@@ -36,10 +42,13 @@ if [ ! -e "${bwsession}" ]; then
 fi
 source $bwsession
 
-tokendir="${bwroot}/tokens/"
-mkdir -p $tokendir
-
 tokencsv="${bwroot}/tokens.csv"
+if [ ! -e $tokencsv ]; then
+    echo
+    echo "!!! ${tokencsv} missing !!!"
+    return
+fi
+
 for line in $(cat $tokencsv); do
     name=$(echo $line | cut -d , -f 1)
     kind=$(echo $line | cut -d , -f 2)
