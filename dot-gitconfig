@@ -45,7 +45,7 @@
 [delta]
     syntax-theme = GitHub
     navigate = true
-    features = line-numbers #side-by-side
+    features = line-numbers side-by-side
     # features = line-numbers side-by-side
 
 [diff "ansible-vault"]
