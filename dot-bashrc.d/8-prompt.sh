@@ -39,7 +39,7 @@ if [ $COLOR_PROMPT -eq 1 ]; then
     POST_HOST="${NONE}"
     PRE_DIR="${PURPLE}"
     POST_DIR="${NONE}"
-    PRE_GIT="${YELLOW}"
+    PRE_GIT="${BLUE}"
     POST_GIT="${NONE}"
     PRE_K8S="${RED}"
     POST_K8S="${NONE}"
