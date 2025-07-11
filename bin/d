@@ -1,25 +1,31 @@
 #!/bin/bash
 set -e
 
+DOCKER=$(which container || which podman || which docker)
+if [[ "${DOCKER}" == "" ]]; then
+    echo UNABLE TO FIND container or podman or docker
+    exit 1
+fi
+
 function list() {
-    echo docker container ls -a
-    docker container ls -a
+    echo $DOCKER container ls -a
+    $DOCKER container ls -a
     echo
     echo -----
     echo
-    echo docker image ls -a
-    docker image ls -a
+    echo $DOCKER image ls -a
+    $DOCKER image ls -a
 }
 
 function prune_containers() {
-    containers=$(docker container ls -aq)
+    containers=$($DOCKER container ls -aq)
     if [[ "" != "${containers}" ]]; then
-        docker container rm -f $containers
+        $DOCKER container rm -f $containers
     fi
 }
 
 function prune_images() {
-    docker image prune -af
+    $DOCKER image prune -af
 }
 
 function prune() {
@@ -38,5 +44,5 @@ if [[ "${1}" == "ls" ]]; then
 elif [[ "${1}" == "prune" ]]; then
     prune $2
 else
-    docker $@
+    $DOCKER $@
 fi
