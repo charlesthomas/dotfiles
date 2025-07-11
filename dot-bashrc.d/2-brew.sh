@@ -12,7 +12,7 @@ export PATH="${PATH}:${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin";
 export MANPATH="${HOMEBREW_PREFIX}/share/man:${MANPATH}";
 export INFOPATH="${HOMEBREW_PREFIX}/share/info:${INFOPATH:-}";
 
-if [ -x $HOMEBREW_PREFIX/bin/bat ]; then
+if [ -e $HOMEBREW_PREFIX/bin/bat ]; then
     alias cat='bat'
     alias pat='cat -p'
 fi
