@@ -1,12 +1,9 @@
 bwroot="${HOME}/.bw"
-[ ! -e $bwroot ] && mkdir -p $bwroot
-
-datadir="${HOME}/.config/Bitwarden CLI"
-datafile="${datadir}/data.json"
-
 tokendir="${HOME}/.tokens"
-[ ! -e $tokendir ] && mkdir -p $tokendir
 
+[[ "$(hostname -s)" == "mini" ]] && return
+
+[ ! -e $bwroot ] && mkdir -p $bwroot
 command -v bw >/dev/null
 if [ $? -ne 0 ]; then
     echo
@@ -64,6 +61,3 @@ for line in $(cat $tokencsv); do
     fi
 done
 
-for tokenfile in $(find $tokendir -type f); do
-    source $tokenfile
-done
