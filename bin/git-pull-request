@@ -6,7 +6,13 @@ if [ ! -x $HOMEBREW_PREFIX/bin/gh ]; then
     exit 1
 fi
 
+label=
+lbl_path="$(git rev-parse --show-toplevel)/.pr-labels"
+if [ -e $lbl_path ]; then
+    label="--label $(cat $lbl_path)"
+fi
+
 git push
-PR=$(gh pr create --fill $@ | grep https)
+PR=$(gh pr create --fill $@ $label | grep https)
 echo $PR
 echo $PR | pbcopy
