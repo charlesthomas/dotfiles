@@ -34,7 +34,12 @@ collect.sh
 .tool-versions
 .DS_Store
 .venv*/
-# npm cruft
+
 .cache/
 .config/
 .npm/
+.devcontainer/
+.claude/
+
+.pr-labels
+tmp/
