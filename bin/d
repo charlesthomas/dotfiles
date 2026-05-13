@@ -28,14 +28,23 @@ function prune_images() {
     $DOCKER image prune -af
 }
 
+function prune_volumes() {
+    volumes=$(docker volume ls -q)
+    if [[ "" != "${volumes}" ]]; then
+        docker volume rm -f $volumes
+    fi
+}
+
 function prune() {
-    if [ -z $2 ]; then
+    if [ -z $1 ]; then
         prune_containers
         prune_images
-    elif [[ "${2}" =~ "container" ]]; then
+    elif [[ "${1}" =~ "container" ]]; then
         prune_containers
-    elif [[ "${2}" =~ "image" ]]; then
+    elif [[ "${1}" =~ "image" ]]; then
         prune_images
+    elif [[ "${1}" =~ "vol" ]]; then
+        prune_volumes
     fi
 }
 
@@ -43,6 +52,8 @@ if [[ "${1}" == "ls" ]]; then
     list
 elif [[ "${1}" == "prune" ]]; then
     prune $2
+elif [[ "${1}" == "killall" ]]; then
+    docker kill $(docker ps -q)
 else
     $DOCKER $@
 fi
