@@ -1,6 +1,17 @@
-export KUBECONFIG=~/.kube/config.d/homelab.conf
-alias kctx='kubectx'
-alias ks='kc'
+export KUBECONFIG=~/.kube/config
+
+alias kf='kconf'
+alias kns='kubens'
+alias kx='kubectx'
+
+function kconf() {
+    query=
+    if [ ! -z $1 ]; then
+        query="--query $1"
+    fi
+    conf=$(ls ~/.kube/config.d/*.conf | fzf --select-1 $query)
+    export KUBECONFIG=$conf
+}
 
 function _k8s_prompt() {
     if [[ "" != $(which kubectl) ]]; then
