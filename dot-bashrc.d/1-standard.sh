@@ -1,5 +1,6 @@
 #!/bin/bash
 export HISTCONTROL=ignoreboth
+export MANPAGER='sh -c '\''col -bx | bat -l man -p'\'
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
