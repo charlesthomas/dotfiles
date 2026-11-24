@@ -2,6 +2,7 @@ export KUBECONFIG=~/.kube/config
 
 alias kf='kconf'
 alias kns='kubens'
+alias ks='kc'
 alias kx='kubectx'
 
 function kconf() {
