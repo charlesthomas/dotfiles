@@ -38,6 +38,7 @@ alias wl='wc -l'
 # helpers
 alias today='date +%F'
 alias refresh='source ~/.bashrc'
+alias wgr='wgrestart'
 
 if [ -e '/Applications/Tailscale.app/Contents/MacOS/Tailscale' ]; then
     alias ts='/Applications/Tailscale.app/Contents/MacOS/Tailscale'

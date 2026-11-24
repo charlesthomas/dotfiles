@@ -170,7 +170,10 @@
   "terminal.integrated.showExitAlert": false,
   "terminal.integrated.shellIntegration.showCommandGuide": false,
   "terminal.integrated.stickyScroll.enabled": false,
-  "claudeCode.preferredLocation": "panel",
   "remote.SSH.configFile": "~/.ssh/config",
   "remote.autoForwardPortsSource": "hybrid",
+  "claudeCode.claudeProcessWrapper": "/Users/crthomas/.local/bin/claude",
+  "claudeCode.preferredLocation": "sidebar",
+  "window.confirmSaveUntitledWorkspace": false,
+  "terminal.integrated.defaultLocation": "editor",
 }
