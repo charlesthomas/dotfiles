@@ -31,7 +31,6 @@ collect.sh
 .project
 .settings/
 
-.tool-versions
 .DS_Store
 .venv*/
 
@@ -43,3 +42,6 @@ collect.sh
 
 .pr-labels
 tmp/
+
+**/.claude/settings.local.json
+/.worktrees

@@ -53,20 +53,22 @@ fi
 if [[ "${REPO_EDITOR}" == "code" ]]; then
     code $full_path
 elif [[ "${REPO_EDITOR}" == "tmux" ]]; then
-    # we want just the repo name from the full path for setting the tmux window name
     repo_name=$(echo $full_path | rev | cut -f 1 -d / | rev)
 
-    # assume there's a tmux session open already and we want a new window
-    thing=window
-
-    # check to see if that's actually true; if it isn't we want a new session
-    if [ -z $TMUX_PANE ]; then
-        thing=session
+    if [[ "${TERM_PROGRAM}" == "herdr" ]]; then
+        # running in herdr — skip tmux entirely, rename this tab and hand the path back to cd into
+        if [ -n "$HERDR_TAB_ID" ]; then
+            herdr tab rename "$HERDR_TAB_ID" "$repo_name" > /dev/null
+        fi
+        echo $full_path
+    elif [ -n "$TMUX_PANE" ]; then
+        # already inside tmux — rename this window instead of opening a new session
+        tmux rename-window "$repo_name"
+        echo $full_path
+    else
+        # not inside tmux — fall back to creating and attaching a session
+        tmux new-session -s "$repo_name" -c "$full_path" -n "$repo_name"
     fi
-
-    # create the new tmux window or session, with the working directory set to the
-    # root of the repo, and the name of the window set to the repo's name
-    tmux new-$thing -c $full_path -n $repo_name
 else
     echo "i don't know how to use $REPO_EDITOR"
     exit 1

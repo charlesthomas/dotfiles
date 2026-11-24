@@ -31,7 +31,6 @@ alias t='tree'
 # shorten commands
 alias cx='chmod u+x'
 alias ref='refresh'
-alias repo='git repo-select'
 alias tm='tmux attach || tmux'
 alias wl='wc -l'
 

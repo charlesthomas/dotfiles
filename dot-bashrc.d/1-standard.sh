@@ -1,4 +1,5 @@
 #!/bin/bash
+export COLORTERM=truecolor
 export HISTCONTROL=ignoreboth
 export MANPAGER='sh -c '\''col -bx | bat -l man -p'\'
 
@@ -17,6 +18,14 @@ export PAGER=less
 #bin
 if [ -e ~/bin ]; then
     PATH=~/bin:"${PATH}"
+fi
+
+if [ -e ~/.claude/bin ]; then
+    PATH=~/.claude/bin:"${PATH}"
+fi
+
+if [ -e ~/.local/bin ]; then
+    PATH=~/.local/bin:"${PATH}"
 fi
 
 #functions

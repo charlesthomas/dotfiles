@@ -1,2 +1,7 @@
 #!/bin/bash
-echo $GITHUB_TOKEN
+
+if [[ "$1" =~ "Username" ]]; then
+    echo charlesthomas
+else
+    echo $GITHUB_TOKEN
+fi

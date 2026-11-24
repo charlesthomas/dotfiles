@@ -32,7 +32,7 @@ set showmatch
 hi SpellBad ctermfg=white guifg=white
 
 set background=light
-"colorscheme github
+colorscheme github
 
 " whitespace highlighting
 " MUST be after colorscheme
